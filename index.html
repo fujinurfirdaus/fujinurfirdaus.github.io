@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseHUb</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      background-color: #b8b8b8;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    h2,
+    h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    .services {
+      text-align: center;
+    }
+
+    .services ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .services li {
+      margin: 10px;
+      position: relative;
+      /* Membuat posisi relatif untuk menempatkan judul */
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .input-field {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .input-field input[type=text] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 10px;
+      /* Penambahan untuk spasi antara input dan dropdown */
+    }
+
+    .input-field select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 10px;
+      /* Penambahan untuk spasi antara dropdown dan tombol Lanjut */
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-column a {
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 10px;
+      font-size: 12px;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: #f1e8e6;
+    }
+
+    .footer-logo img {
+      width: 90px;
+    }
+
+    .struk {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      display: none;
+      /* Sembunyikan struk awalnya */
+    }
+
+    .struk p {
+      margin: 5px 0;
+    }
+
+    .menu-title {
+      padding: 10px 0;
+      margin-top: 10px;
+      /* Mengurangi margin agar berdekatan dengan tombol */
+      text-align: center;
+      display: none;
+      /* Sembunyikan judul awalnya */
+      width: 100%;
+      background-color: #e0e0e0;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdownnominal {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 10px;
+      /* Penambahan untuk spasi antara dropdown dan tombol Lanjut */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="/img/pulsehubss.png" alt="Logo" width="200px">
+  </div>
+  <div class="container">
+    <div class="services">
+      <ul>
+        <li>
+          <button class="button" onclick="showForm('Pulsa Elektrik')">Pulsa</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Pulsa Listrik')">Pulsa Listrik</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Kuota Internet')">Kuota Internet</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Dana')">Dana</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Gopay')">GOPAY</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Shopeepay')">Shopeepay</button>
+        </li>
+        <li>
+          <button class="button" onclick="showForm('Ovo')">OVO</button>
+        </li>
+      </ul>
+    </div>
+    <div class="input-field" id="pulsaForm" style="display: none;">
+      <div class="menu-title" id="judulPulsa" style="display: none;">
+        <h2>Beli / Isi Ulang <span id="judul"></span></h2>
+      </div>
+      <div class="input-field" id="pulsaForm" style="display: block;">
+        <input type="text" id="nomorInput" placeholder="Masukkan Nomor / atau id pelanggan">
+        <button class="button" onclick="showNominal()">Pilih Nominal</button>
+      </div>
+      <div id="nominalField" style="display: none;">
+
+        <select id="nominalSelect">
+          <option value="2000">2.000</option>
+          <option value="5000">5.000</option>
+          <option value="10000">10.000</option>
+          <option value="25000">25.000</option>
+          <option value="50000">50.000</option>
+          <option value="100000">100.000</option>
+          <option value="200000">200.000</option>
+          <option value="200000">250.000</option>
+        </select>
+        <button class="button" onclick="confirmNominal()" id="lanjutButton" display: none;
+          style="margin: 0 auto; display: none; margin-bottom: 10px;">Lanjut</button>
+      </div>
+
+      <!-- <button class="button" onclick="cancel()" style="margin: 0 auto; display: block;">Batal</button> -->
+      <div class="struk" id="konfirmasi">
+        <h2>Konfirmasi Pembelian</h2>
+        <p> Tanggal : <span id="current"></span></p>
+        <p>Nomor / Id Pelanggan : <span id="konfirmasiNomor"></span></p>
+        <p>Nominal : <span id="konfirmasiNominal"></span></p>
+        <p>Total Bayar: <span id="konfirmasiHarga"></span></p>
+        <p>Silahkan untuk klik tombol di bawah untuk lanjut pembelian</p>
+        <button class="button" onclick="kirimWhatsApp(type)">Pesan Sekarang</button>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-column">
+        <a href="/">History Pembelian Saya</a>
+        <a href="#">Produk</a>
+        <a href="#">PULSEHUB Official</a>
+        <a href="#">Akun (31118204545A8)</a>
+      </div>
+      <div class="footer-column">
+        <a href="">Hubungi Kami Melalu Whatsapps</a>
+        <a href="#">Bantuan</a>
+        <a href="#">Kebijakan Privasi</a>
+      </div>
+      <div class="footer-logo">
+        <img src="/img/pulsehubss.png" alt="Logo">
+      </div>
+    </div>
+
+    <script>
+      function showForm(type) {
+        document.getElementById("judul").innerText = type;
+        document.getElementById('pulsaForm').style.display = 'block';
+        document.getElementById('judulPulsa').style.display = 'block';
+      }
+
+
+      function confirmNominal() {
+        var nomor = document.getElementById('nomorInput').value;
+        var nominalSelect = document.getElementById('nominalSelect');
+        var nominal = nominalSelect.options[nominalSelect.selectedIndex].text;
+        var currentSpan = document.getElementById('current');
+        var currentDate = new Date();
+        var options = {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'};
+        var formattedDate = currentDate.toLocaleDateString('en-US', options);
+        currentSpan.innerText = formattedDate;
+        let harga = parseInt(nominalSelect.value) + 2000;
+
+        document.getElementById('konfirmasiNomor').innerText = nomor;
+        document.getElementById('konfirmasiNominal').innerText = nominal;
+        document.getElementById('konfirmasiHarga').innerText = harga;
+        document.getElementById('konfirmasi').style.display = 'block'; // Menampilkan struk pembayaran
+
+      }
+
+      function kirimWhatsApp(type) {
+        var nomor = document.getElementById('nomorInput').value;
+        var nominalSelect = document.getElementById('nominalSelect');
+        var nominal = nominalSelect.options[nominalSelect.selectedIndex].text;
+        var jenisPembayaran = document.getElementById("judul").innerText;
+        var whatsappLink = 'https://wa.me/6282214680433?text=Hallo%20saya%20pesan%20' + jenisPembayaran + '%20' + nominal + '%20untuk%20nomor%20' + nomor + '%20Terimaksih%20';
+        window.open(whatsappLink);
+      }
+
+      function showNominal() {
+        var nomor = document.getElementById('nomorInput').value;
+        if (!nomor) {
+          alert("Nomor tidak boleh kosong")
+          return;
+        }
+        document.getElementById('nominalField').style.display = 'block';
+        document.getElementById('lanjutButton').style.display = 'block';
+      }
+
+    </script>
+</body>
+
+</html>
